@@ -259,7 +259,25 @@ UPDATE movies_details SET ratings=9 WHERE collections IN(SELECT MAX(collections)
 
 DELETE FROM movies_details WHERE id IN(select id FROM movies_details_duplicate WHERE id>11);
 
+SET autocommit=0;
+INSERT INTO movies_details(id,name,lang,platform,released_date_time)VALUE (12,'Badava Rascal','Kannada','Theatre','2021-12-24 11:05:05');
+COMMIT;
+SELECT * FROM movies_details;
+ROLLBACK;
+DELETE FROM movies_details WHERE id=12;
+ROLLBACK;
+COMMIT;
+UPDATE movies_details SET ratings=5 WHERE id=3;
+COMMIT;
+ROLLBACK;
 
+INSERT INTO movies_details(id,name,lang,platform,released_date_time)VALUE (12,'Badava Rascal','Kannada','Theatre','2021-12-24 11:05:05');
+
+UPDATE movies_details SET ratings=5 WHERE id=3;
+
+DELETE FROM movies_details WHERE id=12;
+
+SELECT * FROM movies_details;
 
 
 
