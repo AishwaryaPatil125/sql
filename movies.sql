@@ -274,10 +274,36 @@ ROLLBACK;
 INSERT INTO movies_details(id,name,lang,platform,released_date_time)VALUE (12,'Badava Rascal','Kannada','Theatre','2021-12-24 11:05:05');
 
 UPDATE movies_details SET ratings=5 WHERE id=3;
+SAVEPOINT A;
 
 DELETE FROM movies_details WHERE id=12;
+SAVEPOINT B;
+RELEASE SAVEPOINT A;
 
 SELECT * FROM movies_details;
+
+SELECT USER();
+
+SELECT USER,HOST FROM mysql.user;
+
+CREATE USER 'TempUser'@'localhost'IDENTIFIED BY 'aishu@8801';
+
+SHOW GRANTS FOR 'TempUser'@'localhost'; 
+
+GRANT SELECT,UPDATE ON movies.movies_details TO 'TempUser'@'localhost';
+
+GRANT ALL ON *.* TO 'TempUser'@'localhost';
+
+REVOKE UPDATE ON movies.movies_details FROM 'TempUser'@'localhost';
+
+REVOKE SELECT ON movies.movies_details FROM 'TempUser'@'localhost';
+
+
+
+
+
+
+
 
 
 
