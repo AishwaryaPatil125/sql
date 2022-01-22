@@ -298,6 +298,280 @@ REVOKE UPDATE ON movies.movies_details FROM 'TempUser'@'localhost';
 
 REVOKE SELECT ON movies.movies_details FROM 'TempUser'@'localhost';
 
+CREATE DATABASE myntra_shopping;
+
+USE myntra_shopping;
+
+CREATE TABLE customers(
+id INT PRIMARY KEY,
+name VARCHAR(30)NOT NULL,
+email VARCHAR(30)UNIQUE,
+mobile_number BIGINT,
+address VARCHAR(50)
+);
+
+INSERT INTO customers VALUE(1,'Aishwarya','aishwaryap@gmail.com',7890654789,'Bagalkot'),(2,'Tejashwini','tejashwini@gmail.com',6789065789,'Dharwad'),(3,'Sindhu','sindhu@gmail.com',908765477,'Shimoga'),(4,'Sanjana','sanjana@gmail.com',890876578,'Bellary'),(5,'Ram','ram@gmail.com',8907654789,'Mudhol'),(6,'Aiyappa','Aiyappa@gmail.com',7890654789,'Bellary'),(7,'Sadiya','sadiya@gmail.com',9087657897,'Bangalore'),(8,'Monisha','monisha@gmail.com',7890765478,'Bellary'),(9,'Vidya','vidya@gmail.com',9876589076,'Mudhol'),(10,'Sahana','sahana@gmail.com',7890654327,'Chikmangalur');
+
+SELECT * FROM customers;
+
+CREATE TABLE orders(
+id INT PRIMARY KEY, 
+product_name VARCHAR(20),
+quantity VARCHAR(10),
+amount DECIMAL CHECK(amount>0),
+order_date DATE NOT NULL,
+customer_ref INT,
+FOREIGN KEY(customer_ref)REFERENCES customers(id)
+);
+
+INSERT INTO orders VALUE(100,'MI Mobile',1,10000,'2022-1-1',1);
+
+INSERT INTO orders VALUE(101,'Apple',1,100000,'2022-1-2',2);
+
+INSERT INTO orders VALUE(102,'LG TV',1,10500,'2022-1-3',3);
+
+INSERT INTO orders VALUE(103,'Sony',1,20000,'2022-1-4',5);
+
+INSERT INTO orders VALUE(104,'Watch',1,1000,'2022-1-5',6);
+
+INSERT INTO orders VALUE(105,'Laptop',1,350000,'2022-1-6',6);
+
+INSERT INTO orders (id,product_name,quantity,amount,order_date) VALUE(106,'Charger',1,2000,'2022-1-7');
+
+SELECT * FROM orders;
+
+SELECT * FROM customers WHERE id=1;
+SELECT * FROM customers WHERE id=2;
+
+SELECT * FROM orders WHERE customer_ref=1;
+
+Select O.id,O.product_name,O.order_date,O.customer_ref,C.id,C.name,C.email,C.address 
+FROM orders O INNER JOIN customers C ON O.customer_ref=C.id;
+
+Select O.id,O.product_name,O.order_date,O.customer_ref,C.id,C.name,C.email,C.address 
+FROM orders O LEFT JOIN customers C ON O.customer_ref=C.id;
+
+Select O.id,O.product_name,O.order_date,O.customer_ref,C.id,C.name,C.email,C.address 
+FROM orders O RIGHT JOIN customers C ON O.customer_ref=C.id;
+
+Select O.id,O.product_name,O.order_date,O.customer_ref,C.id,C.name,C.email,C.address 
+FROM orders O LEFT JOIN customers C ON O.customer_ref=C.id
+UNION 
+Select O.id,O.product_name,O.order_date,O.customer_ref,C.id,C.name,C.email,C.address 
+FROM orders O RIGHT JOIN customers C ON O.customer_ref=C.id;
+
+CREATE TABLE offers(
+id INT PRIMARY KEY,
+name VARCHAR(20),
+percentage DECIMAL CHECK(percentage>1),
+order_ref INT,
+FOREIGN KEY(order_ref)REFERENCES orders(id)
+);
+
+INSERT INTO offers VALUE(1,'New Year Sale',20.00,100);
+
+SELECT * FROM offers;
+
+SELECT * FROM offers CROSS  JOIN orders;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
