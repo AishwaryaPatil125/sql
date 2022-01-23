@@ -374,6 +374,37 @@ SELECT * FROM offers;
 
 SELECT * FROM offers CROSS  JOIN orders;
 
+-- highest order price from orders table
+SELECT MAX(amount) FROM orders;
+CREATE VIEW highest_order_price as SELECT MAX(amount) FROM orders;
+SELECT * FROM highest_order_price;
+
+-- the details of the order which has highest prices
+SELECT * FROM orders WHERE amount=(SELECT MAX(amount) FROM orders);
+CREATE VIEW details_of_highest_order AS SELECT * FROM orders WHERE amount=(SELECT MAX(amount) FROM orders);
+SELECT * FROM details_of_highest_order;
+
+Select O.id,O.product_name,O.order_date,O.customer_ref,C.id,C.name,C.email,C.address 
+FROM orders O INNER JOIN customers C ON O.customer_ref=C.id;
+
+CREATE VIEW  orders_and_customers AS Select * FROM orders O,customers C WHERE O.customer_ref=C.id; 
+
+ALTER VIEW details_of_highest_order AS SELECT * FROM orders WHERE amount=(SELECT MIN(amount) FROM orders);
+
+DROP VIEW details_of_highest_order;
+
+SELECT * FROM orders WHERE product_name LIKE 'MI%';
+
+CREATE VIEW mi_product_orders AS SELECT * FROM orders WHERE product_name LIKE 'MI%';
+
+SELECT * FROM mi_product_orders;
+
+
+
+
+
+
+
 
 
 
